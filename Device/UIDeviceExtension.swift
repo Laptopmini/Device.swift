@@ -3,24 +3,23 @@
 //  Device
 //
 //  Created by Johannes Schickling on 7/20/15.
+//  Forked by Laptop_mini
 //
 //
 
 import Foundation
 import UIKit
 
-// MARK: -
-
 public extension UIDevice {
 	
-	/// Returns the `DeviceType` of the device in use
-	public var deviceType: DeviceType {
-		return DeviceType.current
+	/// Returns the `DeviceTypeiOS` of the device in use
+	public var DeviceType: DeviceTypeiOS {
+		return DeviceTypeiOS.current
 	}
 }
 
 /// Enum representing the different types of iOS devices available
-public enum DeviceType: String, EnumProtocol {
+public enum DeviceTypeiOS: String, EnumProtocol {
 	case iPhone2G
 	case iPhone3G
 	case iPhone3GS
@@ -64,7 +63,7 @@ public enum DeviceType: String, EnumProtocol {
 	// MARK: Constants
 	
 	/// Returns the current device type
-	public static var current: DeviceType {
+	public static var current: DeviceTypeiOS {
 		
 		var systemInfo = utsname()
 		uname(&systemInfo)
@@ -79,7 +78,7 @@ public enum DeviceType: String, EnumProtocol {
 			}
 		}
 		
-		return DeviceType(identifier: identifier)
+		return DeviceTypeiOS(identifier: identifier)
 	}
 	
 	// MARK: Variables
@@ -176,7 +175,7 @@ public enum DeviceType: String, EnumProtocol {
 	*/
 	internal init(identifier: String) {
 		
-		for device in DeviceType.all {
+		for device in DeviceTypeiOS.all {
 			for deviceId in device.identifiers {
 				guard identifier == deviceId else { continue }
 				self = device
@@ -189,14 +188,12 @@ public enum DeviceType: String, EnumProtocol {
 }
 
 
-// MARK:
+// MARK: - Protocols
 
 internal protocol EnumProtocol: Hashable {
 	/// Returns All Enum Values
 	static var all: [Self] { get }
 }
-
-// MARK: -
 
 // MARK: - Extensions
 
